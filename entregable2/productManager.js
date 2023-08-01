@@ -1,4 +1,4 @@
-import { promises as fs, writeFile } from "fs";
+ import { promises as fs, writeFile } from "fs";
 
 class ProductManager {
     constructor() {
