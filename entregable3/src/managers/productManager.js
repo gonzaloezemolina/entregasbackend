@@ -75,37 +75,37 @@ export default class ProductManager {
 }
 
 
-// (async () => {
-//     const testProductManager = new ProductManager();
+(async () => {
+    const testProductManager = new ProductManager();
 
-//     try {
-//         await testProductManager.addProduct("Product 1", "Description 1", 100, "image1.jpg", "ABC123", 10);
-//         await testProductManager.addProduct("Product 2", "Description 2", 200, "image2.jpg", "ABC123", 11);
-//         await testProductManager.addProduct("Product 3", "Description 3", 300, "image3.jpg", "ABC123", 12);
-//         await testProductManager.addProduct("Product 4", "Description 4", 400, "image4.jpg", "ABC123", 13);
-//         await testProductManager.addProduct("Product 5", "Description 5", 500, "image5.jpg", "ABC123", 14);
+    try {
+        await testProductManager.addProduct("Product 1", "Description 1", 100, "image1.jpg", "ABC123", 10);
+        await testProductManager.addProduct("Product 2", "Description 2", 200, "image2.jpg", "ABC123", 11);
+        await testProductManager.addProduct("Product 3", "Description 3", 300, "image3.jpg", "ABC123", 12);
+        await testProductManager.addProduct("Product 4", "Description 4", 400, "image4.jpg", "ABC123", 13);
+        await testProductManager.addProduct("Product 5", "Description 5", 500, "image5.jpg", "ABC123", 14);
 
-//         const allProducts = await testProductManager.getProducts();
-//         console.log("All Products:", allProducts);
+        const allProducts = await testProductManager.getProducts();
+        console.log("All Products:", allProducts);
 
-//         const productById = await testProductManager.getProductById(7);
-//         console.log("Product with ID 7:", productById);
+        const productById = await testProductManager.getProductById(7);
+        console.log("Product with ID 7:", productById);
 
-//         await testProductManager.deleteProductById(3);
-//         console.log("Product with ID 3 deleted.");
+        await testProductManager.deleteProductById(4);
+        console.log("Product with ID 4 deleted.");
 
-//         await testProductManager.updateProductById({
-//             title: "Product Attempt",
-//             description: "Description attempt",
-//             price: 1010,
-//             thumbnail: "Image 10.jpg",
-//             code: "ABC123",
-//             stock: 6,
-//             id: 9
-//         });
-//         console.log("Product with ID 9 updated.");
+        await testProductManager.updateProductById({
+            title: "Product Attempt",
+            description: "Description attempt",
+            price: 1010,
+            thumbnail: "Image 10.jpg",
+            code: "ABC123",
+            stock: 6,
+            id: 9
+        });
+        console.log("Product with ID 9 updated.");
 
-//     } catch (error) {
-//         console.error("Error:", error);
-//     }
-// })();
+    } catch (error) {
+        console.error("Error:", error);
+    }
+})();
