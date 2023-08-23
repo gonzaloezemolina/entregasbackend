@@ -56,13 +56,13 @@ router.put("/products/:pid", async (req, res) => {
 
   try {
     await productManager.updateProduct(
-      productId,
-      title,
-      description,
-      price,
-      thumbnail,
-      code,
-      stock,
+      7,
+      "Auriculares Gamer Sony",
+      "Auriculares Gamer Sony Grey",
+      15000,
+      "/public/img/auricularessony.png",
+      "abc122",
+      13,
     );
     res.json({ message: "Producto modificado exitosamente" });
   } catch (error) {

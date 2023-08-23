@@ -4,7 +4,7 @@
     "title": "Joystick Sony PS4",
     "description": "Joystick Sony Original",
     "price": 14300,
-    "thumbnail": "url",
+    "thumbnail": "./img/joystickps4.jpg",
     "code": "abc124",
     "stock": 12
   },
@@ -13,7 +13,7 @@
     "title": "Xbox Series S",
     "description": "Consola Xbox Ss Microsoft",
     "price": 558000,
-    "thumbnail": "url",
+    "thumbnail": "./img/xboxseriess.jpg",
     "code": "abc1266",
     "stock": 50
   },
@@ -22,7 +22,7 @@
     "title": "Playstation 5",
     "description": "Consola PS5 Sony",
     "price": 800000,
-    "thumbnail": "url",
+    "thumbnail": "./img/playstation5.jpg",
     "code": "abc1255",
     "stock": 7
   },
@@ -31,17 +31,17 @@
     "title": "Playstation 4",
     "description": "Consola PS4 Sony",
     "price": 330000,
-    "thumbnail": "url",
+    "thumbnail": "./img/playstation4.webp",
     "code": "abc1244",
     "stock": 13
   },
   {
     "id": 7,
-    "title": "Auriculares Gamer Grey",
-    "description": "Auriculares Gamer Sony",
-    "price": 1500,
-    "thumbnail": "url",
-    "code": "abc121",
-    "stock": 23
+    "title": "Auriculares Gamer Sony",
+    "description": "Auriculares Gamer Sony Grey",
+    "price": 15000,
+    "thumbnail": "./img/auricularessony.png",
+    "code": "abc122",
+    "stock": 13
   }
 ]

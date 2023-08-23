@@ -5,7 +5,7 @@ import cartRouter from "./routes/carts.Router.js"
 import { __dirname } from './utils.js';
 import { Server } from 'socket.io';
 import handlebars from "express-handlebars";
-
+import ProductManager from './managers/productManager.js';
 
 const app = express ();
 
@@ -34,8 +34,16 @@ const server = app.listen(PORT, () =>{
 server.on("error", error => console.log(`Error en el servidor ${error}`))
 
 //Socket
+const pManagerSocket = new ProductManager(__dirname + "/json/products.json")
 const socket = new Server(server)
-socket.on("connection", (socket) => {
-    console.log("Client connected, id: ", socket.id);
+
+
+
+
+socket.on("connection", async (socket) => {
+    console.log("client connected, id: ", socket.id);
+    const listadeproducts = await pManagerSocket.getProducts({});
+    socket.emit("envioproducts", listadeproducts)
 })
 
+socket.emit("message", "Holaaaaaaaaaa")
