@@ -4,7 +4,7 @@ import ProductManager from "../dao/fileSystem/managers/productManager.js";
 
 const router = express.Router();
 
-const productManager = new ProductManager(__dirname + "/json/products.json");
+const productManager = new ProductManager(__dirname + "/dao/fileSystem/json/products.json");
 
 router.get("/products", async (req, res) => {
   try {

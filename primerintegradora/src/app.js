@@ -8,7 +8,7 @@ import { Server } from 'socket.io';
 import handlebars from "express-handlebars";
 import ProductManager from './dao/fileSystem/managers/productManager.js';
 import mongoose from 'mongoose';
-import productModel from './dao/mongo/models/product.model.js';
+
 
 const app = express ();
 
@@ -44,8 +44,6 @@ socket.on("connection", async (socket) => {
     const listadeproducts = await pManagerSocket.getProducts({});
     socket.emit("envioproducts", listadeproducts)
 })
-
-socket.emit("message", "Holaa")
 
 //Mongo
 const conexion = mongoose.connect("mongodb+srv://gonzaloezemolina:gonzalo2013@cluster0.n8ds0sl.mongodb.net/ecommerce?retryWrites=true&w=majority")

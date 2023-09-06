@@ -2,7 +2,7 @@ import express from "express";
 import { __dirname } from "../utils.js";
 import CartManager from "../dao/fileSystem/managers/cartsManager.js";
 const router = express.Router();
-const carritoManager = new CartManager(__dirname + '/json/cart.json'); 
+const carritoManager = new CartManager(__dirname + '/dao/fileSystem/json/cart.json'); 
 
 
 router.get("/carts", async (req,res) => {
