@@ -27,16 +27,15 @@ const PORT = process.env.PORT||8080
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"))
-app.use(session(
-  MongoStore.create({
+app.use(session({
+  store: MongoStore.create({
     mongoUrl:"mongodb+srv://gonzaloezemolina:gonzalo2013@cluster0.n8ds0sl.mongodb.net/ecommerce?retryWrites=true&w=majority",
-    mongoOptions:{useNewUrlParser: true, useUnifiedTopology: true },
-    ttl:15000,
+    ttl:15000
+  }),
     secret: "c0d3rS3cr3t",
     resave: false,
     saveUninitialized: false,
-  })
-))
+  }))
 
 
 //Handlebars

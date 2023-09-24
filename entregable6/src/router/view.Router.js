@@ -17,6 +17,21 @@ router.get("/", async (req, res) => {
       products,
     });
   });
+
+  router.get('/',async(req,res)=>{
+    if(!req.session.user){
+        return res.redirect('/login');
+    }
+    res.render('Profile',{user:req.session.user})
+})
+
+router.get('/register',async(req,res)=>{
+    res.render('Register')
+})
+
+router.get('/login',async(req,res)=>{
+    res.render('Login')
+})
   
 
 
