@@ -4,14 +4,30 @@
     box-sizing: border-box;
 }
 
+body{
+    position: relative;
+    min-height: 100vh;
+}
+
 header{
     background-color: black;
 }
 
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 22px;
+}
+
 footer{
+    position: absolute;
+    bottom: 0;
     background-color: black;
     color: white;
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .nav-link{
@@ -37,4 +53,49 @@ a{
 
 .btn-products{
     border: 1px solid black;
+}
+
+/* Login */
+.login-container{
+    border: 2px black solid;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 35%;
+    margin-right: 35%;
+    display: block;
+    justify-content: center;
+    background-color: rgb(0, 0, 0);
+    align-items: center;
+    padding: 20px;
+    color: white;
+    a{
+        color: white;
+    }
+}
+
+/*Registro*/
+.register-container{
+    border: 2px black solid;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 35%;
+    margin-right: 35%;
+    display: block;
+    justify-content: center;
+    background-color: black;
+    align-items: center;
+    padding: 20px;
+    color: white;
+}
+
+/*Ocultar elementos*/
+
+.ocultarElemento {
+    visibility: hidden;
+  }
+
+.inputs{
+    border-radius: 5px;
+    border: 0;
+    padding-left: 5px;
 }

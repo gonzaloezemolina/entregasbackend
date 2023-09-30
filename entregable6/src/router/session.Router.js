@@ -1,10 +1,12 @@
 import {Router} from 'express'
 import userManager from '../dao/mongo/modelsManagers/userManager.js';
-const router = Router();
+import passport from 'passport';
 
 const usersService = new userManager()
+const sessionRouter = Router();
 
-router.post("/register", async (req, res) => {
+//Register
+sessionRouter.post("/register", async (req, res) => {
     const { firstName, lastName, email, age, password } = req.body;
     if (!firstName || !email || !password)
       return res
@@ -15,7 +17,7 @@ router.post("/register", async (req, res) => {
     if (userRegistered) {
       return res
         .send({ status: "error", error: "User already registered" })
-        .redirect("/session/login");
+        .redirect("/login");
     } else {
       const newUser = {
         firstName,
@@ -30,7 +32,9 @@ router.post("/register", async (req, res) => {
     }
   });
   
-  router.post("/login", async (req, res) => {
+
+  //Login
+  sessionRouter.post("/login", async (req, res) => {
     const { email, password } = req.body;
     if (email === "adminCoder@coder.com" && password === "adminCod3r123") {
       req.session.admin = true;
@@ -50,14 +54,51 @@ router.post("/register", async (req, res) => {
     res.send({ status: "success", message: "Logueado" });
   });
   
-  router.get("/logout", async (req, res) => {
+
+  //Logout
+  sessionRouter.get("/logout", async (req, res) => {
     req.session.destroy((error) => {
       if (error) {
         console.log(error);
         return res.redirect("/");
       } else {
-        res.redirect("/");
+        res.redirect("/login");
       }
     });
   });
-export default router
+
+  //login con passport github
+sessionRouter.get(
+  "/github",
+  passport.authenticate("github", { scope: "user:email" }),
+  async (req, res) => {}
+);
+
+sessionRouter.get(
+  "/githubCallBack",
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  async (req, res) => {
+    console.log(req.user);
+    req.session.user = {
+      fist_name: req.user.first_name,
+      last_name: req.user.last_name,
+      age: req.user.age,
+      email: req.user.email,
+      admin: req.user.admin,
+    };
+    const access_token = generateToken(req.user);
+    res.redirect("/");
+  }
+);
+
+
+//registro con passport
+sessionRouter.post(
+  "/session/register",
+  passport.authenticate("register"),
+  async (req, res) => {
+    const access_token = generateToken(req.user);
+    res.send({ status: "success", access_token });
+  }
+);
+export default sessionRouter

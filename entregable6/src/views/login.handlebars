@@ -1,21 +1,24 @@
-<section class="login-container">
- <h1>Login</h1>
 
-<div>
+
+ <h1>Login</h1>
+<section class="login-container">
+<div class="login-survey">
     <form class="loginForm">
         <label>Email</label>
-        <input name="email">
+        <input class="inputs" name="email" placeholder="Ingrese su email">
         <br/>
-        <label>CONTRASEÑA</label>
-        <input name="password">
+        <label>Contraseña</label>
+        <input class="inputs" name="password" placeholder="Ingrese su contraseña">
         <input type="submit">
     </form>
 </div>
 
-¿No tienes una cuenta? <a href="/register">Regístrate</a>
+<div class="login-alternatives">
+<p>¿No tienes una cuenta? <a href="/register">Regístrate</a></p>
 
-También puedes ingresa por
-<a href="/api/sessions/github"><button>Github :)</button></a>
+<p>También puedes ingresa por<a href="/api/sessions/github"><button>Github</button></a></p>
+</div>
+
 </section>
    
 

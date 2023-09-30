@@ -18,11 +18,11 @@ router.get("/", async (req, res) => {
     });
   });
 
-  router.get('/',async(req,res)=>{
+  router.get('/profile',async(req,res)=>{
     if(!req.session.user){
         return res.redirect('/login');
     }
-    res.render('Profile',{user:req.session.user})
+    res.render('profile',{user:req.session.user})
 })
 
 router.get('/register',async(req,res)=>{
@@ -32,7 +32,10 @@ router.get('/register',async(req,res)=>{
 router.get('/login',async(req,res)=>{
     res.render('Login')
 })
-  
+
+router.get('/logout', async(req,res) => {
+  res.redirect('/login')
+})
 
 
 export default router

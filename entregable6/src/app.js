@@ -1,5 +1,6 @@
 //Imports
 import express from 'express';
+import morgan from 'morgan';
 import FileStore  from 'session-file-store';
 import Handlebars from 'Handlebars';
 import session from 'express-session';
@@ -19,7 +20,8 @@ import messageRouter from './router/message.Router.js';
 import productManager from './dao/mongo/modelsManagers/productosManager.js';
 import mongoose from 'mongoose';
 import MongoStore from 'connect-mongo';
-
+import initializePassportStrategies from './config/passport.config.js';
+import passport from 'passport';
 
 const app = express ();
 
@@ -30,6 +32,7 @@ app.use(express.static(__dirname + "/public"))
 app.use(session({
   store: MongoStore.create({
     mongoUrl:"mongodb+srv://gonzaloezemolina:gonzalo2013@cluster0.n8ds0sl.mongodb.net/ecommerce?retryWrites=true&w=majority",
+    mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
     ttl:15000
   }),
     secret: "c0d3rS3cr3t",
@@ -37,6 +40,8 @@ app.use(session({
     saveUninitialized: false,
   }))
 
+  app.use(passport.initialize());
+  app.use(passport.session());
 
 //Handlebars
 app.engine(
@@ -57,6 +62,7 @@ app.use("/", messageRouter)
 app.use("/api/sessions", sessionRouter);
 app.use(cookieParser("c0d3rS3cr3t"));
 
+initializePassportStrategies()
 //Http
 const server = app.listen(PORT, () =>{
     console.log(`Server HTTP is listening on PORT ${server.address().port}`);
