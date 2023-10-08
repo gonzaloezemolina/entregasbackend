@@ -12,3 +12,4 @@ const executePolicies = (policies) => {
         next();
     }
 }
+export default executePolicies

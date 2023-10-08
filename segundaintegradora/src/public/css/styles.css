@@ -73,6 +73,11 @@ a{
     }
 }
 
+.linkto-login{
+    color: white;
+}
+
+
 /*Registro*/
 .register-container{
     border: 2px black solid;
@@ -85,6 +90,10 @@ a{
     background-color: black;
     align-items: center;
     padding: 20px;
+    color: white;
+}
+
+.linkto-register{
     color: white;
 }
 

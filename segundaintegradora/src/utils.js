@@ -1,6 +1,5 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import bcrypt from "bcrypt";
 import  jwt  from "jsonwebtoken";
 
 const private_key = "secr3eto"

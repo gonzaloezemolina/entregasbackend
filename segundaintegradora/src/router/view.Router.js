@@ -1,41 +1,27 @@
-import { Router } from "express";
-import productManager from "../dao/mongo/modelsManagers/productosManager.js";
-import cartManager from "../dao/mongo/modelsManagers/carritosManager.js";
-const router = Router();
+import baseRouter from "./base.Router.js";
+import productManager from "../dao/mongo/modelsManagers/productosManager.js";;
 const productServices = new productManager();
-const cartServices = new cartManager();
 
-router.get("/", async (req, res) => {
-    const renProducts = await productServices.getProducts();
-    res.render("home", {renProducts})
-})
-  
-  router.get("/cart", async (req, res) => {
-    const cart = await cartServices.getCarts();
-    const products = cart.products;
-    res.render("cart", {
-      products,
-    });
-  });
+class ViewRouter extends baseRouter{
+  init(){
+    this.get('/register',['NO_AUTH'],async (req,res)=>{
+      res.render('Register')
+    })
 
-  router.get('/profile',async(req,res)=>{
-    if(!req.session.user){
-        return res.redirect('/login');
-    }
-    res.render('profile',{user:req.session.user})
-})
+    this.get('/login',['NO_AUTH'],async(req,res)=>{
+      res.render('Login')
+    })
 
-router.get('/register',async(req,res)=>{
-    res.render('Register')
-})
+    this.get('/profile',['AUTH'],async(req,res)=>{
+      res.render('profile')
+    })
 
-router.get('/login',async(req,res)=>{
-    res.render('Login')
-})
+    this.get('/',['PUBLIC'],async(req,res)=>{
+      const renProducts = await productServices.getProducts();
+      res.render("home", {renProducts})
+    })
+  }
+}
 
-router.get('/logout', async(req,res) => {
-  res.redirect('/login')
-})
-
-
-export default router
+const viewsRouter = new ViewRouter();
+export default viewsRouter.getRouter();

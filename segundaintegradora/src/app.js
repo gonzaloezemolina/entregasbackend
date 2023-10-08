@@ -55,12 +55,13 @@ app.set("view engine", "handlebars" )
 
 
 //Rutas
+app.use(cookieParser());
 app.use("/api",productsRouter);
 app.use("/api",cartRouter)
 app.use("/",viewRouter)
 app.use("/", messageRouter)
 app.use("/api/sessions", sessionRouter);
-app.use(cookieParser("c0d3rS3cr3t"));
+
 
 initializePassportStrategies()
 //Http

@@ -8,7 +8,6 @@ const passportCall = (strategy, options = {}) => {
         return res.sendInternalError("strategyType not defined");
       }
       if (!user) {
-        //La próxima vez que no encuentre al usuario, el tipo de estrategia me va a ayudar a definir Cómo reaccionar.
         switch (options.strategyType) {
           case "LOCALS": {
             return res.status(401).send({

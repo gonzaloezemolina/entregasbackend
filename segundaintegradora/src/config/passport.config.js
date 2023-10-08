@@ -15,7 +15,7 @@ const initializePassportStrategies = () =>{
         const {firstName, lastName} = req.body;
         if(!firstName||!lastName) return done(null,false,{message:'Incomplete values'});
 
-        const exists = await usersService.getBy({email});
+        const exists = await usersService.getUserById({email});
         if(exists) return done(null,false,{message:'User already exists'});
 
         const hashedPassword = await auth.createHash(password);
@@ -25,7 +25,7 @@ const initializePassportStrategies = () =>{
             email,
             password:hashedPassword
         }
-        const result = await usersService.create(newUser);
+        const result = await usersService.createUser(newUser);
         done(null,result);
     }));
 
@@ -33,7 +33,7 @@ const initializePassportStrategies = () =>{
 
     passport.use('login', new LocalStrategy({usernameField:'email', session:false},async(email,password,done)=>{
     try{
-       const user = await usersService.getBy({email});
+       const user = await usersService.getUserById({email});
         if(!user) return done(null,false,{message:'Incorrect Credentials'});
        
         const isValidPassword = await auth.validatePassword(password,user.password);
