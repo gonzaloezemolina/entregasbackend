@@ -29,7 +29,6 @@ export default class baseRouter {
     }
 
     generateCustomResponses(req,res,next){
-        console.log("Aqui");
         res.sendSuccess = message => res.send({status:"success",message})
         res.sendSuccessWithPayload = payload => res.send({status:"success",payload})
         res.sendInternalError = err => res.status(500).send({status:"error", err})

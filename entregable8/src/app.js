@@ -1,6 +1,7 @@
 //Imports
 import express from 'express';
 import winston from 'winston';
+import logger from './utils/logger.js';
 import config from './config/config.js';
 import FileStore  from 'session-file-store';
 import Handlebars from 'Handlebars';
@@ -72,21 +73,21 @@ const server = app.listen(PORT, () =>{
 server.on("error", error => console.log(`Error en el servidor ${error}`))
 
 
-const logger = new winston.createLogger({
-  transports:[
-    new winston.transports.Console({
-      level:'http'
-    }),
-    new winston.transports.File({
-      level:'http',
-      filename:'./activity.log'
-    })
-  ]
-})
-
 app.use((req,res,next) =>{
   logger.http(`${req.method} en ${req.url} a las ${new Date().toLocaleString()}`)
 })
+
+app.get('/loggerTest', (req, res) => {
+  req.logger.debug('Creando usuario');
+  req.logger.info('Registro de información');
+  req.logger.warning('Warning');
+  req.logger.error('Error');
+  req.logger.fatal('Fatal');
+
+  res.send('Prueba de logs realizada');
+});
+
+
 
 
 //Socket

@@ -94,7 +94,7 @@ sessionRouter.get(
 
 //registro con passport
 sessionRouter.post(
-  "/session/register",
+  "/register",
   passport.authenticate("register"),
   async (req, res) => {
     const access_token = generateToken(req.user);
