@@ -1,0 +1,11 @@
+<section class="containerProducts">
+<h1 class="titulo-tienda">Nuestra variedad de productos</h1>
+{{#each renProducts}}
+<div class="product">
+<img class="product__img" src={{thumbnail}} alt="imagen de producto">
+<h3>{{title}}</h3>
+<span>${{price}}</span>
+<a class="btn-products" href="#">Comprar</a>
+</div>
+{{/each}}
+</section>
