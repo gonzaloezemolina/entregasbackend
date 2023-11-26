@@ -1,0 +1,182 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Bebas";
+}
+
+/*FONTS*/
+@font-face{
+    font-family: "Bebas";
+    src: url(../font/BebasNeue-Regular.ttf);
+}
+
+body{
+    position: relative;
+    min-height: 100vh;
+}
+
+/*NAVBAR*/
+header{
+    width: 100%;
+    position: fixed;
+}
+
+#navBar ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 25px;
+  }
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    font-size: 22px;
+    background: linear-gradient(to right, black 65%, rgb(209, 11, 11)0%); 
+}
+
+.red-section {
+    text-align: right;
+    a:hover{
+        color: rgb(5, 5, 5);
+        transition: .5s;
+}
+}
+
+.black-section{
+    a:hover{
+        color: rgb(209, 11, 11);
+        transition: .5s;
+}
+} 
+
+  li{
+    list-style: none;
+  }
+
+  .nav-link{
+    text-decoration: none;
+    padding: 10px;
+    color: white;
+}
+
+
+  /*Footer*/
+
+footer{
+    position: absolute;
+    bottom: 0;
+    background-color: black;
+    color: white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+svg{
+    padding: 5px;
+    cursor: pointer;
+}
+
+.footer-icons{
+    padding: 10px;
+    svg:hover{
+        color: rgb(209, 11, 11);
+        transition: .5s;
+}
+}
+
+h1{
+    padding-top: 25px;
+   color: black;
+   text-align: center;
+   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+/*Productos*/
+
+.containerProducts{
+    padding: 55px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    justify-items: center;
+    
+}
+
+.product{
+    padding: 10px;
+}
+
+
+
+.product__img{
+    width: 250px;
+    height: 250px;
+}
+
+.price{
+    text-align: center;
+}
+
+
+/* Login */
+.login-container{
+    border: 2px black solid;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 35%;
+    margin-right: 35%;
+    display: block;
+    justify-content: center;
+    background-color: rgb(0, 0, 0);
+    align-items: center;
+    padding: 20px;
+    color: white;
+    a{
+        color: white;
+    }
+}
+
+.linkto-login{
+    color: white;
+}
+
+
+/*Registro*/
+.register-container{
+    border: 2px black solid;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 35%;
+    margin-right: 35%;
+    display: block;
+    justify-content: center;
+    background-color: black;
+    align-items: center;
+    padding: 20px;
+    color: white;
+}
+
+.linkto-register{
+    color: white;
+}
+
+/*Ocultar elementos*/
+
+.ocultarElemento {
+    visibility: hidden;
+  }
+
+.inputs{
+    border-radius: 5px;
+    border: 0;
+    padding-left: 5px;
+}
