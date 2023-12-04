@@ -1,66 +1,103 @@
 import passport from "passport";
+import config from "./config.js";
 import auth from "../services/auth.js";
-import userManager from "../dao/mongo/modelsManagers/userManager.js";
+import { UserService } from "../services/index.js";
+import { cartService } from "../services/index.js";
 import { Strategy as LocalStrategy} from "passport-local";
 import { Strategy as JWTStrategy, ExtractJwt } from "passport-jwt";
 
-
-const usersService = new userManager();
-
-
-const initializePassportStrategies = () =>{
-
-    passport.use('register',new LocalStrategy({passReqToCallback:true,usernameField:'email',session:false},
-    async(req,email,password,done)=>{
-        const {firstName, lastName} = req.body;
-        if(!firstName||!lastName) return done(null,false,{message:'Incomplete values'});
-
-        const exists = await usersService.getUserById({email});
-        if(exists) return done(null,false,{message:'User already exists'});
-
-        const hashedPassword = await auth.createHash(password);
-        const newUser = {
-            firstName,
-            lastName,
-            email,
-            password:hashedPassword
+const initializePassportStrategies = () => {
+    passport.use(
+      "register",
+      new LocalStrategy(
+        { passReqToCallback: true, usernameField: "email", session: false }, async (req, email, password, done) => {
+          try {
+            const { firstName, lastName } = req.body;
+            if (!firstName || !lastName)
+              return done(null, false, { message: "Incomplete values" });
+  
+            const exists = await UserService.getUserBy({ email });
+            if (exists)
+              return done(null, false, { message: "User already exists" });
+  
+            const hashedPassword = await auth.createHash(password);
+  
+            const newUser = {
+              firstName,
+              lastName,
+              email,
+              password: hashedPassword,
+            };
+  
+            let cart;
+            if (req.cookies["cart"]) {
+              cart = req.cookies["cart"];
+            } else {
+              const cartResult = await cartService.createCart();
+              cart = cartResult.id;
+            }
+            newUser.cart = cart;
+  
+            const result = await UserService.createUser(newUser);
+            return done(null, result);
+          } catch (error) {
+            console.log(error);
+            return done(error);
+          }
         }
-
-        let cart;
-        if (req.cookies["cart"]) {
-          cart = req.cookies["cart"];
-        } else {
-          const cartResult = await cartsService.createCart();
-          cart = cartResult.id;
+      )
+    );
+  
+    passport.use(
+      "login",
+      new LocalStrategy(
+        { usernameField: "email", session: false },
+        async (email, password, done) => {
+          try {
+            if (
+              email === config.app.ADMIN_EMAIL &&
+              password === config.app.ADMIN_PASSWORD
+            ) {
+              const adminUser = {
+                role: "admin",
+                id: "0",
+                firstName: "admin",
+              };
+              return done(null, adminUser);
+            }
+  
+            const user = await UserService.getUserBy({ email });
+            if (!user)
+              return done(null, false, { message: "Invalid Credentials" });
+  
+            const isValidPassword = await auth.validatePassword(
+              password,
+              user.password
+            );
+            if (!isValidPassword)
+              return done(null, false, { message: "Invalid Credentials" });
+            return done(null, user);
+          } catch (error) {
+            console.log(error);
+            return done(error);
+          }
         }
-        newUser.cart = cart;
-
-
-        const result = await usersService.createUser(newUser);
-        done(null,result);
-    }));
-
-    passport.use('login', new LocalStrategy({usernameField:'email', session:false},async(email,password,done)=>{
-    try{
-       const user = await usersService.getUserById({email});
-        if(!user) return done(null,false,{message:'Incorrect Credentials'});
-       
-        const isValidPassword = await auth.validatePassword(password,user.password);
-        if(!isValidPassword) return done(null,false,{message:'Incorrect Credentials'});
-        done(null,user);
-    }catch(error){
-        console.log(error);
-        return done (error)
-    }
-}));
-
-    passport.use('jwt', new JWTStrategy({
-        jwtFromRequest:ExtractJwt.fromExtractors([auth.extractAuthToken]),
-        secretOrKey:'jwtSecret'
-    },async(payload, done)=>{
-        return done(null,payload)
-    }))
-
-}
-
-export default initializePassportStrategies;
+      )
+    );
+  
+    passport.use(
+      "jwt",
+      new JWTStrategy(
+        {
+          jwtFromRequest: ExtractJwt.fromExtractors([auth.extractAuthToken,]),
+          secretOrKey: "jwtSecret",
+        },
+        async (payload, done) => {
+          console.log("JWT Payload:", payload);
+          return done(null, payload);
+        }
+      )
+    );
+  };
+  
+  export default initializePassportStrategies;

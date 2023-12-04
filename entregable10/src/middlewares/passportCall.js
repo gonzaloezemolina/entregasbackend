@@ -16,6 +16,7 @@ const passportCall = (strategy, options = {}) => {
             });
           }
           case "JWT": {
+            console.log("Aca esta el tema");
             req.user = null;
             return next();
           }

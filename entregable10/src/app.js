@@ -27,12 +27,13 @@ import passport from 'passport';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUiExpress from 'swagger-ui-express';
 
-const app = express ();
+export const app = express ();
 
 const PORT = config.app.PORT
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"))
+app.use(cookieParser());
 app.use(session({
   store: MongoStore.create({
     mongoUrl:"mongodb+srv://gonzaloezemolina:gonzalo2013@cluster0.n8ds0sl.mongodb.net/ecommerce?retryWrites=true&w=majority",
@@ -58,8 +59,9 @@ app.set("views", __dirname+ "/views")
 app.set("view engine", "handlebars" )
 
 
+initializePassportStrategies()
+
 //Rutas
-app.use(cookieParser());
 app.use("/api",productsRouter);
 app.use("/api",cartRouter)
 app.use("/",viewRouter)
@@ -67,7 +69,7 @@ app.use("/", messageRouter)
 app.use("/api/sessions", sessionRouter);
 
 
-initializePassportStrategies()
+
 //Http
 const server = app.listen(PORT, () =>{
     console.log(`Server HTTP is listening on PORT ${server.address().port}`);
@@ -77,6 +79,7 @@ server.on("error", error => console.log(`Error en el servidor ${error}`))
 
 app.use((req,res,next) =>{
   logger.http(`${req.method} en ${req.url} a las ${new Date().toLocaleString()}`)
+  next();
 })
 
 app.get('/loggerTest', (req, res) => {

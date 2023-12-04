@@ -1,78 +1,54 @@
-import supertest from "supertest";
-import chai from "chai";
-import productManager from "../src/dao/mongo/modelsManagers/productosManager.js";
+import chai from 'chai';
+import supertest from 'supertest';
+import { app } from '../src/app.js';
+import productsRouter from '../src/router/products.Router.js';
 
-// describe('test unitario para DAO de Product', function()
-// {
-//     this.timeout(TEST_TIMEOUT);
-//     let idProduct;
+const expect = chai.expect;
+const api = supertest(app);
 
-//     before(async function () {await mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true })});
-//     after(async function () 
-//     {
-//         await mongoose.disconnect()
-//     });
-    
-//     it('debería agregar un producto correctamente', async function () 
-//     {
-//         const newProduct = 
-//         {
-//             title: 'Producto de Prueba',
-//             description: 'Descripcion de prueba',
-//             category: 'Malbec',
-//             code: 'aabd234',
-//             status:true,
-//             stock:333,
-//             price:333,
-//             owner:'admin',
-//             thumbnail: 'urlimg'
-//         };
+describe('Testing ProductsManager', () => {
+  it('Debería obtener todos los productos', async () => {
+    const response = await api.get('/api/products');
+    expect(response.status).to.equal(200);
+  });
 
-//         const product = new ProductDao(); 
-//         const result = await product.addProduct(newProduct);
+  it('Debería crear un nuevo producto', async () => {
+    const newProductData = {
+      title: 'Nuevo Producto',
+      description: 'Descripción del nuevo producto',
+      price: 999,
+      thumbnail: 'URL del thumbnail',
+      code: 'Código del nuevo producto',
+      stock: 10,
+    };
 
-//         idProduct = result._id;
-//         assert.ok(result._id);
-//     });
+    const response = await api.post('/api/products').send(newProductData);
+    expect(response.status).to.equal(200);
+    expect(response.body).to.have.property('_id'); 
+    productId = response.body._id;
+  });
 
-//     it('debería obtener un producto por su ID correctamente', async function () 
-//     {
-//         const productId = idProduct;
-//         const product = new ProductDao(); 
-//         const result = await product.getProductById(productId);
+  it('Debería actualizar un producto existente', async () => {
+    expect(productId).to.be.a('string')
 
-//         assert.ok(result._id);
-//     });
+    const updatedProductData = {
+      title: 'Producto Actualizado',
+      description: 'Nueva descripción del producto',
+      price: 39.99,
+      thumbnail: 'Nueva URL del thumbnail',
+      code: 'Nuevo código del producto',
+      stock: 20,
+    };
 
-//     it('debería actualizar un producto correctamente', async function () 
-//     {
+    const response = await api.put(`/api/products/${productId}`).send(updatedProductData);
+    expect(response.status).to.equal(200);
+  });
 
-//         const productId = idProduct;
+  it('Debería eliminar un producto existente', async () => {
+    expect(productId).to.be.a('string')
 
-//         const updatedProduct = 
-//         {
-//             title: '___Producto de Prueba',
-//             description: '___Descripcion de prueba',
-//             category: 'Malbec',
-//             code: '___aabd234',
-//             status:true,
-//             stock:333,
-//             price:333,
-//             owner:'admin',
-//             thumbnail: '___urlimg'
-//         };
+    const response = await api.delete(`/api/products/${productId}`);
+    expect(response.status).to.equal(200);
+  });
 
-//         const product = new ProductDao(); 
-//         const result = await product.updateProduct(productId, updatedProduct);
-//         assert.strictEqual(result.title, updatedProduct.title);
-//     });
-
-//     it('debería eliminar un producto correctamente', async function () 
-//     {
-//         const productId = idProduct;
-//         const product = new ProductDao();
-//         const result = await product.deleteProduct(productId);
-//         assert.strictEqual(result.status, true); 
-//     });
-
-// })
+});

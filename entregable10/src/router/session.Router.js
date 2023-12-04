@@ -1,49 +1,36 @@
 import passportCall from "../middlewares/passportCall.js";
-import { validateJWT } from "../middlewares/jwtExtractor.js";
-import userController from "../controllers/user.controller.js";
 import baseRouter from "./base.Router.js";
-import jwt from 'jsonwebtoken'
-import config from "../config/config.js";
+import sessionController from "../controllers/session.controller.js";
 
-
-class sessionRouter extends baseRouter{
+class SessionsRouter extends baseRouter {
   init() {
     this.post(
       "/register",
-      ["NO_AUTH"],
+      ["PUBLIC"],
       passportCall("register", { strategyType: "LOCALS" }),
-      async (req, res) => {
-        res.clearCookie("cart");
-        res.sendSuccess("Registered");
-      }
+      sessionController.register
     );
+
     this.post(
       "/login",
       ["NO_AUTH"],
+      (req, res, next) => {
+        console.log("Middleware ejecutado");
+        next();
+      },
       passportCall("login", { strategyType: "LOCALS" }),
-      async (req, res) => {
-        const tokenizedUser = {
-          name: `${req.user.firstName} ${req.user.lastName}`,
-          id: req.user._id,
-          role: req.user.role,
-          cart: req.user.cart,
-        };
-        const token = jwt.sign(tokenizedUser, config.jwt.SECRET, {
-          expiresIn: "1d",
-        });
-        res.cookie(config.jwt.COOKIE, token);
-        res.clearCookie("cart");
-        // Redirecciona al usuario a "/profile"
-    res.redirect("/profile");
-        res.sendSuccess("Logged In");
+      (req, res) => {
+        console.log("Ruta ejecutada");
+        sessionController.login(req, res);
       }
     );
-    this.get("/current", ["AUTH"], async (req, res) => {
-      console.log(req.user);
-      res.sendSuccessWithPayload(req.user);
-    });
+
+    this.get("/logout", ["AUTH"], sessionController.logout);
+
+    this.get("/current", ["AUTH"], sessionController.current);
   }
 }
 
-const SessionRouter = new sessionRouter();
-export default SessionRouter.getRouter();
+const sessionsRouter = new SessionsRouter();
+
+export default sessionsRouter.getRouter();
