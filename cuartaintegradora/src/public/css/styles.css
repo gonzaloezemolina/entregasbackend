@@ -1,0 +1,319 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Bebas";
+}
+
+/*FONTS*/
+@font-face{
+    font-family: "Bebas";
+    src: url(../font/BebasNeue-Regular.ttf);
+}
+
+body{
+    position: relative;
+    min-height: 100vh;
+}
+
+/*NAVBAR*/
+header{
+    width: 100%;
+    position: fixed;
+}
+
+#navBar ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 25px;
+  }
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    font-size: 22px;
+    background: linear-gradient(to right, black 65%, rgb(209, 11, 11)0%); 
+}
+
+.red-section {
+    text-align: right;
+    a:hover{
+        color: rgb(5, 5, 5);
+        transition: .5s;
+}
+}
+
+.black-section{
+    a:hover{
+        color: rgb(209, 11, 11);
+        transition: .5s;
+}
+} 
+
+  li{
+    list-style: none;
+  }
+
+  .nav-link{
+    text-decoration: none;
+    padding: 10px;
+    color: white;
+}
+
+
+  /*Footer*/
+
+footer{
+    position: absolute;
+    bottom: 0;
+    background-color: black;
+    color: white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+svg{
+    padding: 5px;
+    cursor: pointer;
+}
+
+.footer-icons{
+    padding: 10px;
+    svg:hover{
+        color: rgb(209, 11, 11);
+        transition: .5s;
+}
+}
+
+h1{
+    padding-top: 25px;
+   color: black;
+   text-align: center;
+   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+
+/*BANNER*/
+.banner{
+    height: 100vh;
+    background-image: url(../img/bannercyber.gif);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+/*Productos*/
+
+.containerProducts{
+    padding: 55px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    justify-items: center;
+    
+}
+
+.product{
+    padding: 10px;
+}
+
+
+
+.product__img{
+    width: 250px;
+    height: 250px;
+}
+
+.btn-products{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-products{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.price{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Login */
+.login-container{
+    border: 2px black solid;
+    margin-top: 25px;
+    margin-left: 38%;
+    margin-right: 38%;
+    display: block;
+    justify-content: center;
+    height: 50%;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: rgb(0, 0, 0);
+    align-items: center;
+    padding: 20px;
+    color: white;
+    a{
+        color: white;
+    }
+}
+
+#titulo-login{
+    color: white;
+}
+
+.background-login{
+    height: 100vh;
+    background-color: rgb(66, 3, 3);
+    background-image: url(../img/noise.png);
+}
+
+#loginicon{
+    color: white;
+}
+
+#loginForm{
+    padding-top: 20px;
+}
+
+.iconenlogin{
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.login-encouragement{
+    padding-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.button-login{
+    cursor: pointer;
+    font-size: 15px;
+    margin-left: 15%;
+    padding-top: 10px;
+    padding-left: 70px;
+    padding-right: 75px;
+    color: rgb(114, 10, 10);
+
+}
+
+.linkto-register{
+    padding-left: 5px;
+}
+
+.linkto-register:hover{
+    text-decoration: underline;
+}
+
+
+
+.inputs-login{
+    margin-left: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-right: 70px;
+    padding-left: 5px;
+}
+
+
+
+/*REGISTRO*/
+.register-container{
+    border: 4px black solid;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 38%;
+    margin-right: 38%;
+    display: block;
+    justify-content: center;
+    background-color: rgb(255, 254, 254);
+    align-items: center;
+    padding: 20px;
+    color: white;
+}
+
+#registerForm{
+    padding-top: 10px;
+}
+
+#titulo-register{
+    color: white;
+}
+
+.background-register{
+    height: 100vh;
+    background-color: rgb(4, 12, 83);
+    background-image: url(../img/noise.png);
+}
+
+#registericon{
+    color: white;
+}
+
+.iconenregister{
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-register{
+    cursor: pointer;
+    font-size: 15px;
+    margin-left: 15%;
+    padding-top: 10px;
+    padding-left: 60px;
+    padding-right: 67px;
+    color: rgb(6, 12, 100);
+}
+
+.linkto-login{
+    margin-left: 30%;
+    color: rgb(0, 0, 0);
+}
+
+
+.linkto-login:hover{
+text-decoration: underline;
+}
+
+
+.inputs-register{
+    margin-left: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    padding-right: 70px;
+    padding-left: 5px;
+}
+
+/*Ocultar elementos*/
+
+.ocultarElemento {
+    visibility: hidden;
+  }
+
